@@ -43,7 +43,7 @@ public class BaseTest {
 		
 //		String browserName = prop.getProperty("browser");
 
-		if (browserName.contains("chrome")) {
+		if (browserName.contains("chrome")) { // if we run in headed or headless
 			ChromeOptions options = new ChromeOptions();
 
 			WebDriverManager.chromedriver().setup();
@@ -52,7 +52,7 @@ public class BaseTest {
 				options.addArguments("headless"); // runs the Test in Headless mode
 			}
 			driver = new ChromeDriver(options); // sending Options as parameters
-			driver.manage().window().setSize(new Dimension(1440,900)); // to run in full screen mode
+			driver.manage().window().setSize(new Dimension(1440,900)); // to run in full screen mode some elements in the app are hidden when size is small
 
 		}
 		
