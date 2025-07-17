@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -41,10 +43,17 @@ public class BaseTest {
 		
 //		String browserName = prop.getProperty("browser");
 
-		if(browserName.equalsIgnoreCase("chrome")) {		
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
-		
+		if (browserName.contains("chrome")) {
+			ChromeOptions options = new ChromeOptions();
+
+			WebDriverManager.chromedriver().setup();
+
+			if (browserName.contains("headless")) {
+				options.addArguments("headless"); // runs the Test in Headless mode
+			}
+			driver = new ChromeDriver(options); // sending Options as parameters
+			driver.manage().window().setSize(new Dimension(1440,900)); // to run in full screen mode
+
 		}
 		
 		else if(browserName.equalsIgnoreCase("firefox")) {
